@@ -2,16 +2,17 @@
 #define APPLICATION_H
 
 #include "appinc.h"
+#include "Graphics.h"
 
 class Application
 {
 public:
-	Application() = default;
-	Application(HINSTANCE hInstance, int nCmdShow);
+	Application();
 
 	// Run() will start and run the application
 	int Run(HINSTANCE hInstance, int nCmdShow);
 
+private:
 	// Initialize() will handle the initializtion of all
 	// the necessary components
 	void Initialize();
@@ -32,9 +33,7 @@ public:
 
 private:
 	HWND m_handleWindow;
-
-	static constexpr int m_clientWidth{ 1920 };
-	static constexpr int m_clientHeight{ 1080 };
+	Graphics m_graphics;
 };
 
 #endif

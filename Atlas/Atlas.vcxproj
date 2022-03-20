@@ -159,10 +159,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Exception.cpp" />
+    <ClCompile Include="Source\Graphics.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Exception.h" />
+    <ClInclude Include="Source\Graphics.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\appinc.h" />
   </ItemGroup>

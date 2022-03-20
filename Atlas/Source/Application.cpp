@@ -2,8 +2,9 @@
 
 #include <cassert>
 
-Application::Application(HINSTANCE hInstance, int nCmdShow)
+Application::Application()
 : m_handleWindow{}
+, m_graphics{ 1920, 1080 }
 {
 }
 
@@ -27,9 +28,12 @@ int Application::Run(HINSTANCE hInstance, int nCmdShow)
 	windowClass.hIconSm = LoadIcon(hInstance, IDI_APPLICATION);
 	assert(RegisterClassEx(&windowClass) != 0 && "Unable to register the window class");
 
+	const int displayWidth{ m_graphics.GetDisplayWidth() };
+	const int displayHeight{ m_graphics.GetDisplayHeight() };
+
 	// We compute the desired client window size
-	RECT clientWindow{ 0, 0, m_clientWidth, m_clientHeight };
-	AdjustWindowRect(&clientWindow, WS_OVERLAPPEDWINDOW, FALSE);
+	RECT displayWindow{ 0, 0, displayWidth, displayHeight };
+	AdjustWindowRect(&displayWindow, WS_OVERLAPPEDWINDOW, FALSE);
 
 	const int screenWidth{ GetSystemMetrics(SM_CXSCREEN) };
 	const int screenHeight{ GetSystemMetrics(SM_CYSCREEN) };
@@ -37,8 +41,8 @@ int Application::Run(HINSTANCE hInstance, int nCmdShow)
 	// We create a window and return an handle to it
 	HWND handleWindow = CreateWindow(
 		className, windowName, WS_OVERLAPPEDWINDOW,
-		(screenWidth / 2) - (m_clientWidth / 2), (screenHeight / 2) - (m_clientHeight / 2),
-		clientWindow.right - clientWindow.left, clientWindow.bottom - clientWindow.top,
+		(screenWidth / 2) - (displayWidth / 2), (screenHeight / 2) - (displayHeight / 2),
+		displayWindow.right - displayWindow.left, displayWindow.bottom - displayWindow.top,
 		nullptr, nullptr, hInstance, nullptr
 	);
 
@@ -81,6 +85,7 @@ int Application::Run(HINSTANCE hInstance, int nCmdShow)
 
 void Application::Initialize()
 {
+	m_graphics.Initialize();
 }
 
 void Application::Update()
